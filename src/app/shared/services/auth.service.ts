@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Login } from '../models/login.model';
+import { ResetPassword } from '../models/reset-password.model';
+import { ChangePassword } from '../models/change-password.model';
 
 @Injectable({
   providedIn: 'root'
