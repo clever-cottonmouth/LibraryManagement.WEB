@@ -36,7 +36,7 @@ import { Book } from '../../shared/models/book.model';
         </form>
         <mat-form-field>
           <mat-label>Search Books</mat-label>
-          <input matInput (input)="onSearchBooks($event)">
+          <input matInput (input)="searchBooks($any($event.target).value)">
         </mat-form-field>
         <table mat-table [dataSource]="books">
           <ng-container matColumnDef="title">
@@ -120,11 +120,6 @@ export class ManageBooksComponent implements OnInit {
       },
       error: (err) => this.snackBar.open(err.error || 'Operation failed', 'Close', { duration: 3000 })
     });
-  }
-
-  onSearchBooks(event: Event): void {
-    const query = (event.target as HTMLInputElement).value;
-    this.searchBooks(query);
   }
 
   searchBooks(query: string): void {
