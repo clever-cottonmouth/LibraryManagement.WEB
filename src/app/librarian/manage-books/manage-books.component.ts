@@ -36,7 +36,7 @@ import { Book } from '../../shared/models/book.model';
         </form>
         <mat-form-field>
           <mat-label>Search Books</mat-label>
-          <input matInput (input)="searchBooks($event.target.value)">
+          <input matInput (input)="onSearchBooks($event)">
         </mat-form-field>
         <table mat-table [dataSource]="books">
           <ng-container matColumnDef="title">
@@ -122,6 +122,11 @@ export class ManageBooksComponent implements OnInit {
     });
   }
 
+  onSearchBooks(event: Event): void {
+    const query = (event.target as HTMLInputElement).value;
+    this.searchBooks(query);
+  }
+
   searchBooks(query: string): void {
     this.libraryService.searchBooks(query).subscribe({
       next: (books) => this.books = books,
@@ -131,7 +136,7 @@ export class ManageBooksComponent implements OnInit {
 
   editBook(book: Book): void {
     this.selectedBook = book;
-    this.bookForm.patch22Value(book);
+    this.bookForm.patchValue(book);
   }
 
   deactivateBook(id: number): void {

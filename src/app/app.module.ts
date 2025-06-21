@@ -13,13 +13,47 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { LibrarianDashboardComponent } from './librarian/dashboard/dashboard.component';
+import { ManageStudentsComponent } from './librarian/manage-students/manage-students.component';
+import { ManageBooksComponent } from './librarian/manage-books/manage-books.component';
+import { IssueBookComponent } from './librarian/issue-book/issue-book.component';
+import { ReturnBookComponent } from './librarian/return-book/return-book.component';
+import { SettingsComponent } from './librarian/settings/settings.component';
+import { NotificationsComponent } from './librarian/notifications/notifications.component';
+import { StudentDashboardComponent } from './student/dashboard/dashboard.component';
+import { SearchBooksComponent } from './student/search-books/search-books.component';
+import { IssuedBooksComponent } from './student/issued-books/issued-books.component';
+import { ProfileComponent } from './student/profile/profile.component';
+import { StudentNotificationsComponent } from './student/notifications/notifications.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    LibrarianDashboardComponent,
+    ManageStudentsComponent,
+    ManageBooksComponent,
+    IssueBookComponent,
+    ReturnBookComponent,
+    SettingsComponent,
+    NotificationsComponent,
+    StudentDashboardComponent,
+    SearchBooksComponent,
+    IssuedBooksComponent,
+    ProfileComponent,
+    StudentNotificationsComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,7 +69,7 @@ import { AppComponent } from './app.component';
     MatDialogModule,
     MatSelectModule,
     MatIconModule,
-    RecaptchaModule,
+    RouterModule,
     AppRoutingModule
   ],
   bootstrap: [AppComponent]

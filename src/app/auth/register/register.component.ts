@@ -23,7 +23,6 @@ import { Login } from '../../shared/models/login.model';
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" required>
           </mat-form-field>
-          <re-captcha formControlName="captchaToken"></re-captcha>
           <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
         </form>
       </mat-card-content>
@@ -46,8 +45,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      captchaToken: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
