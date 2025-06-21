@@ -7,7 +7,7 @@ import { Book, Student, BookIssue, Notification, LibrarySettings } from '../mode
   providedIn: 'root'
 })
 export class LibraryService {
-  private apiUrl = 'https://localhost:5001/api'; // Replace with your API URL
+  private apiUrl = 'http://localhost:5000/api'; // Replace with your API URL
 
   constructor(private http: HttpClient) { }
 

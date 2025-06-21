@@ -11,7 +11,7 @@ import { ChangePassword } from '../models/change-password.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:5001/api'; // Replace with your API URL
+  private apiUrl = 'http://localhost:5000/api'; // Replace with your API URL
   private jwtHelper = new JwtHelperService();
   private currentUserSubject = new BehaviorSubject<string | null>(null);
   currentUser = this.currentUserSubject.asObservable();
