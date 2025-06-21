@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Login } from '../models/login.model';
 import { ResetPassword } from '../models/reset-password.model';
 import { ChangePassword } from '../models/change-password.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,22 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<string | null>(null);
   currentUser = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private router: Router) {
     // Check for existing token on initialization
     const token = localStorage.getItem('token');
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      this.currentUserSubject.next(this.jwtHelper.decodeToken(token).sub);
+    if (token) {
+      try {
+        if (this.jwtHelper.isTokenExpired(token)) {
+          localStorage.removeItem('token');
+        } else {
+          this.currentUserSubject.next(this.jwtHelper.decodeToken(token).sub);
+        }
+      } catch (error) {
+        // Invalid token, clear it
+        localStorage.removeItem('token');
+        console.error('Error decoding token on init', error);
+      }
     }
   }
 
@@ -90,6 +102,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
   }
 
   /**
@@ -98,7 +111,13 @@ export class AuthService {
    */
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    return token != null && !this.jwtHelper.isTokenExpired(token);
+    if (!token) return false;
+
+    try {
+      return !this.jwtHelper.isTokenExpired(token);
+    } catch (e) {
+      return false;
+    }
   }
 
   /**
@@ -108,8 +127,12 @@ export class AuthService {
   getRole(): string | null {
     const token = localStorage.getItem('token');
     if (token) {
-      const decoded = this.jwtHelper.decodeToken(token);
-      return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      try {
+        const decoded = this.jwtHelper.decodeToken(token);
+        return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      } catch (e) {
+        return null;
+      }
     }
     return null;
   }
