@@ -64,7 +64,16 @@ export class RegisterComponent implements AfterViewInit {
           this.snackBar.open('Registration successful. Awaiting verification.', 'Close', { duration: 3000 });
           this.router.navigate(['/login']);
         },
-        error: (err) => this.snackBar.open(err.error || 'Registration failed', 'Close', { duration: 3000 })
+        error: (err) => {
+          // Handle object-based errors from the backend
+          let errorMessage = 'Registration failed';
+          if (err.error && typeof err.error === 'object' && err.error.message) {
+            errorMessage = err.error.message;
+          } else if (err.error && typeof err.error === 'string') {
+            errorMessage = err.error;
+          }
+          this.snackBar.open(errorMessage, 'Close', { duration: 3000 });
+        }
       });
     }
   }
