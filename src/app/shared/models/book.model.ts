@@ -5,5 +5,4 @@ export interface Book {
   publication: string;
   stock: number;
   pdfUrl?: string;
-  wordUrl?: string;
 }
