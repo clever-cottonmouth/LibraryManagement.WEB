@@ -1,0 +1,39 @@
+.dashboard-container {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 20px;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  justify-content: space-between;
+}
+
+.summary-card {
+  flex: 1;
+  text-align: center;
+  min-width: 180px;
+}
+
+.summary-card.issued h1 {
+  color: #1976d2;
+}
+.summary-card.overdue h1 {
+  color: #d32f2f;
+}
+.summary-card.notifications h1 {
+  color: #ffa000;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+mat-card.recent-activity {
+  margin-top: 32px;
+}

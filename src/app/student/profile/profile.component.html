@@ -1,0 +1,59 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Update Profile</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()" class="profile-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="profileForm.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required>
+        <mat-error *ngIf="profileForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="profileForm.get('email')?.hasError('email')">Invalid email</mat-error>
+      </mat-form-field>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || loadingProfile">
+          <mat-spinner *ngIf="loadingProfile" diameter="20"></mat-spinner>
+          <span *ngIf="!loadingProfile">Update Profile</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Change Password</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" class="password-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Old Password</mat-label>
+        <input matInput type="password" formControlName="oldPassword" required>
+        <mat-error *ngIf="passwordForm.get('oldPassword')?.hasError('required')">Old password is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>New Password</mat-label>
+        <input matInput type="password" formControlName="newPassword" required>
+        <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('required')">New password is required</mat-error>
+        <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm New Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" required>
+        <mat-error *ngIf="passwordForm.get('confirmPassword')?.hasError('required')">Confirm password is required</mat-error>
+        <mat-error *ngIf="passwordForm.hasError('passwordsMismatch')">Passwords do not match</mat-error>
+      </mat-form-field>
+      <div class="form-actions">
+        <button mat-raised-button color="accent" type="submit" [disabled]="passwordForm.invalid || loadingPassword">
+          <mat-spinner *ngIf="loadingPassword" diameter="20"></mat-spinner>
+          <span *ngIf="!loadingPassword">Change Password</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
