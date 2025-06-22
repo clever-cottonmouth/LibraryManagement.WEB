@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { LibrarianDashboardComponent } from './librarian/dashboard/dashboard.component';
 import { ManageStudentsComponent } from './librarian/manage-students/manage-students.component';
+import { AddStudentComponent } from './librarian/add-student/add-student.component';
 import { ManageBooksComponent } from './librarian/manage-books/manage-books.component';
 import { IssueBookComponent } from './librarian/issue-book/issue-book.component';
 import { ReturnBookComponent } from './librarian/return-book/return-book.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: LibrarianDashboardComponent },
       { path: 'students', component: ManageStudentsComponent },
+      { path: 'students/add', component: AddStudentComponent },
       { path: 'books', component: ManageBooksComponent },
       { path: 'issue', component: IssueBookComponent },
       { path: 'return', component: ReturnBookComponent },
