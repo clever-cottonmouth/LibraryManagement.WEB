@@ -34,7 +34,16 @@ export class ManageBooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.searchBooks('');
+    this.listBooks();
+  }
+
+  listBooks(): void {
+    this.libraryService.listBooks().subscribe({
+      next: (response: any) => {
+        this.books = response.data ? response.data : response;
+      },
+      error: (err) => this.snackBar.open('Failed to load books', 'Close', { duration: 3000 })
+    });
   }
 
   onFileChange(event: Event, type: string): void {
@@ -56,7 +65,7 @@ export class ManageBooksComponent implements OnInit {
         this.snackBar.open('Book saved', 'Close', { duration: 3000 });
         this.bookForm.reset({ id: 0, stock: 0 });
         this.selectedBook = null;
-        // this.searchBooks('');
+        this.listBooks();
       },
       error: (err) => this.snackBar.open(err.error || 'Operation failed', 'Close', { duration: 3000 })
     });
@@ -64,7 +73,9 @@ export class ManageBooksComponent implements OnInit {
 
   searchBooks(query: string): void {
     this.libraryService.searchBooks(query).subscribe({
-      next: (books) => this.books = books,
+      next: (response: any) => {
+        this.books = response.data ? response.data : response;
+      },
       error: (err) => this.snackBar.open('Failed to load books', 'Close', { duration: 3000 })
     });
   }
@@ -78,7 +89,7 @@ export class ManageBooksComponent implements OnInit {
     this.libraryService.deactivateBook(id).subscribe({
       next: () => {
         this.snackBar.open('Book deactivated', 'Close', { duration: 3000 });
-        this.searchBooks('');
+        this.listBooks();
       },
       error: (err) => this.snackBar.open('Failed to deactivate book', 'Close', { duration: 3000 })
     });
