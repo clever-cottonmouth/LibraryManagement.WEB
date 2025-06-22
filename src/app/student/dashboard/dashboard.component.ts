@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class StudentDashboardComponent implements OnInit {
+
   studentName: string = '';
   issuedBooks: BookIssue[] = [];
   overdueBooks: BookIssue[] = [];
@@ -57,5 +58,10 @@ export class StudentDashboardComponent implements OnInit {
 
   goTo(route: string): void {
     this.router.navigate([route]);
+  }
+
+
+  goToSearchBooks() {
+    this.router.navigate(['/student/search-books']);
   }
 }
