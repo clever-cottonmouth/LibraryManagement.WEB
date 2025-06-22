@@ -188,4 +188,8 @@ export class LibraryService {
   listBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.apiUrl}/Librarian/books/list`, this.getAuthHeaders());
   }
+
+  listBooksStudent(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.apiUrl}/Student/books/list`, this.getAuthHeaders());
+  }
 }

@@ -3,7 +3,7 @@
     <form (ngSubmit)="searchBooks()" class="search-form">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Search for books</mat-label>
-        <!-- <input matInput [(ngModel)]="query" name="query" placeholder="Enter title, author, or keyword" required> -->
+        <input matInput [(ngModel)]="query" name="query" placeholder="Enter title, author, or keyword" required>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit" [disabled]="loading">
         <mat-icon>search</mat-icon> Search
@@ -15,7 +15,7 @@
     <mat-spinner diameter="40"></mat-spinner>
   </div>
 
-  <div *ngIf="searched && !loading">
+  <div *ngIf="!loading">
     <div *ngIf="books.length === 0" class="empty-state">
       <p>No books found.</p>
     </div>
