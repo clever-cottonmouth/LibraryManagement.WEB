@@ -13,6 +13,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -69,6 +72,9 @@ import { StudentNotificationsComponent } from './student/notifications/notificat
     MatDialogModule,
     MatSelectModule,
     MatIconModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
     RouterModule,
     AppRoutingModule
   ],

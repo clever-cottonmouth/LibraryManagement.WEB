@@ -1,0 +1,95 @@
+mat-card {
+  max-width: 1200px;
+  margin: 2em auto;
+  padding: 20px;
+}
+
+.search-section {
+  margin-bottom: 20px;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.table-container {
+  margin-bottom: 20px;
+}
+
+.students-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.loading-container, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #666;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.statistics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 2em;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 4px;
+}
+
+.mat-column-id {
+  width: 80px;
+}
+
+.mat-column-status {
+  width: 200px;
+}
+
+.mat-column-actions {
+  width: 150px;
+}
+
+@media (max-width: 768px) {
+  .statistics {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
