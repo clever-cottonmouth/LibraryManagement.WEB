@@ -172,4 +172,12 @@ export class LibraryService {
   downloadFile(url: string): Observable<Blob> {
     return this.http.get(`${this.apiUrl}${url}`, { ...this.getAuthHeaders(), responseType: 'blob' });
   }
+
+  /**
+   * list all students
+   * @returns Observable with list of students
+   */
+  listStudents(): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.apiUrl}/Librarian/students/list`, this.getAuthHeaders());
+  }
 }
