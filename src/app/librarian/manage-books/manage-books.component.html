@@ -1,37 +1,17 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>Manage Books</mat-card-title>
+    <div class="header-actions">
+    </div>
   </mat-card-header>
   <mat-card-content>
-    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Author</mat-label>
-        <input matInput formControlName="author" required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Publication</mat-label>
-        <input matInput formControlName="publication" required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Stock</mat-label>
-        <input matInput type="number" formControlName="stock" required>
-      </mat-form-field>
-      <input type="file" (change)="onFileChange($event, 'pdf')" accept=".pdf">
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="bookForm.invalid">Save</button>
-    </form>
     <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px;">
       <mat-form-field style="flex: 1;">
         <mat-label>Search Books</mat-label>
-        <input matInput #searchInput>
+        <input matInput #searchInput (input)="searchBooks(searchInput.value)">
       </mat-form-field>
-      <button mat-icon-button color="primary" (click)="searchBooks(searchInput.value)">
-        <mat-icon>search</mat-icon>
-      </button>
+
     </div>
     <table mat-table [dataSource]="books">
       <ng-container matColumnDef="title">
