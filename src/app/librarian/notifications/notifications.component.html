@@ -12,6 +12,14 @@
         <th mat-header-cell *matHeaderCellDef>ID</th>
         <td mat-cell *matCellDef="let n">{{n.id}}</td>
       </ng-container>
+      <ng-container matColumnDef="studentName">
+        <th mat-header-cell *matHeaderCellDef>Student Name</th>
+        <td mat-cell *matCellDef="let n">{{n.student?.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="studentEmail">
+        <th mat-header-cell *matHeaderCellDef>Student Email</th>
+        <td mat-cell *matCellDef="let n">{{n.student?.email}}</td>
+      </ng-container>
       <ng-container matColumnDef="message">
         <th mat-header-cell *matHeaderCellDef>Message</th>
         <td mat-cell *matCellDef="let n">{{n.message}}</td>
@@ -22,10 +30,26 @@
       </ng-container>
       <ng-container matColumnDef="reply">
         <th mat-header-cell *matHeaderCellDef>Reply</th>
-        <td mat-cell *matCellDef="let n">{{n.reply || '-'}}</td>
+        <td mat-cell *matCellDef="let n">
+          <ng-container *ngIf="editingReplyId === n.id; else showReply">
+            <input matInput [(ngModel)]="replyText[n.id]" placeholder="Type reply..." style="width: 150px; margin-right: 8px;">
+            <button mat-icon-button color="primary" (click)="sendReply(n.id)" [disabled]="!replyText[n.id].trim()">
+              <mat-icon>send</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancelEditReply()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </ng-container>
+          <ng-template #showReply>
+            <span *ngIf="n.reply; else editBtn">{{n.reply}}</span>
+            <ng-template #editBtn>
+              <button mat-stroked-button color="primary" (click)="startEditReply(n.id)">Reply</button>
+            </ng-template>
+          </ng-template>
+        </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['id', 'message', 'sentDate', 'reply']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['id', 'message', 'sentDate', 'reply']"></tr>
+      <tr mat-header-row *matHeaderRowDef="['id', 'studentName', 'studentEmail', 'message', 'sentDate', 'reply']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'studentName', 'studentEmail', 'message', 'sentDate', 'reply']"></tr>
     </table>
     <div *ngIf="!loading && notifications.length === 0" class="empty-state">
       <mat-icon>notifications_off</mat-icon>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book, Student, BookIssue, Notification, LibrarySettings } from '../models';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -242,7 +243,8 @@ export class LibraryService {
    * @returns Observable with list of notifications
    */
   getNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.apiUrl}/Librarian/notifications`, this.getAuthHeaders());
+    return this.http.get<any>(`${this.apiUrl}/Librarian/notifications`, this.getAuthHeaders())
+      .pipe(map(res => res.data || []));
   }
 
   /**
