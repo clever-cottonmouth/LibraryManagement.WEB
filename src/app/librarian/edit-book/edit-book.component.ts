@@ -55,9 +55,10 @@ export class EditBookComponent implements OnInit {
     if (this.bookId) {
       this.loading = true;
       this.libraryService.getBook(this.bookId).subscribe({
-        next: (book: any) => {
-          this.bookForm.patchValue(book);
-          this.pdfUrl = book.pdfUrl || null;
+        next: (response: any) => {
+          if (response && response.data) {
+            this.setBookData(response.data);
+          }
           this.loading = false;
         },
         error: () => {
@@ -66,6 +67,16 @@ export class EditBookComponent implements OnInit {
         }
       });
     }
+  }
+
+  setBookData(book: any): void {
+    this.bookForm.patchValue({
+      title: book.title,
+      author: book.author,
+      publication: book.publication,
+      stock: book.stock
+    });
+    this.pdfUrl = book.pdfUrl || null;
   }
 
   onFileChange(event: Event): void {

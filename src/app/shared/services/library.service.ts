@@ -73,9 +73,11 @@ export class LibraryService {
       // Remove Content-Type so browser sets it for multipart/form-data
       const headers = this.getAuthHeaders().headers;
       const headersWithoutContentType = headers.delete('Content-Type');
-      return this.http.put(`${this.apiUrl}/Librarian/books`, book, { headers: headersWithoutContentType });
+      const id = book.get('id');
+      return this.http.put(`${this.apiUrl}/Librarian/books/${id}`, book, { headers: headersWithoutContentType });
     }
-    return this.http.put(`${this.apiUrl}/Librarian/books`, book, this.getAuthHeaders());
+    // book is a Book object
+    return this.http.put(`${this.apiUrl}/Librarian/books/${(book as Book).id}`, book, this.getAuthHeaders());
   }
 
   /**
