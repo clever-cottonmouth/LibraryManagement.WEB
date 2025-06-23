@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LibraryService } from '../../shared/services/library.service';
 import { Book } from '../../shared/models/book.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-books',
@@ -16,11 +17,13 @@ export class ManageBooksComponent implements OnInit {
   selectedBook: Book | null = null;
   pdfFile: File | null = null;
   wordFile: File | null = null;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private libraryService: LibraryService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.bookForm = this.fb.group({
       id: [0],
@@ -39,11 +42,16 @@ export class ManageBooksComponent implements OnInit {
   }
 
   listBooks(): void {
+    this.loading = true;
     this.libraryService.listBooks().subscribe({
       next: (response: any) => {
         this.books = response.data ? response.data : response;
+        this.loading = false;
       },
-      error: (err) => this.snackBar.open('Failed to load books', 'Close', { duration: 3000 })
+      error: (err) => {
+        this.snackBar.open('Failed to load books', 'Close', { duration: 3000 });
+        this.loading = false;
+      }
     });
   }
 
@@ -73,11 +81,16 @@ export class ManageBooksComponent implements OnInit {
   }
 
   searchBooks(query: string): void {
+    this.loading = true;
     this.libraryService.searchBooks(query).subscribe({
       next: (response: any) => {
         this.books = response.data ? response.data : response;
+        this.loading = false;
       },
-      error: (err) => this.snackBar.open('Failed to load books', 'Close', { duration: 3000 })
+      error: (err) => {
+        this.snackBar.open('Failed to load books', 'Close', { duration: 3000 });
+        this.loading = false;
+      }
     });
   }
 
@@ -114,5 +127,9 @@ export class ManageBooksComponent implements OnInit {
         error: (err) => this.snackBar.open('Failed to delete book', 'Close', { duration: 3000 })
       });
     }
+  }
+
+  openAddBook(): void {
+    this.router.navigate(['/librarian/books/add']);
   }
 }

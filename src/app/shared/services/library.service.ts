@@ -53,16 +53,28 @@ export class LibraryService {
    * @param book Book details
    * @returns Observable with response
    */
-  addBook(book: Book): Observable<any> {
+  addBook(book: Book | FormData): Observable<any> {
+    if (book instanceof FormData) {
+      // Remove Content-Type so browser sets it for multipart/form-data
+      const headers = this.getAuthHeaders().headers;
+      const headersWithoutContentType = headers.delete('Content-Type');
+      return this.http.post(`${this.apiUrl}/Librarian/books`, book, { headers: headersWithoutContentType });
+    }
     return this.http.post(`${this.apiUrl}/Librarian/books`, book, this.getAuthHeaders());
   }
 
   /**
    * Updates an existing book.
-   * @param book Book details
+   * @param book Book details or FormData
    * @returns Observable with response
    */
-  updateBook(book: Book): Observable<any> {
+  updateBook(book: Book | FormData): Observable<any> {
+    if (book instanceof FormData) {
+      // Remove Content-Type so browser sets it for multipart/form-data
+      const headers = this.getAuthHeaders().headers;
+      const headersWithoutContentType = headers.delete('Content-Type');
+      return this.http.put(`${this.apiUrl}/Librarian/books`, book, { headers: headersWithoutContentType });
+    }
     return this.http.put(`${this.apiUrl}/Librarian/books`, book, this.getAuthHeaders());
   }
 
@@ -254,5 +266,14 @@ export class LibraryService {
    */
   getStudentNotifications(): Observable<Notification[]> {
     return this.http.get<Notification[]>(`${this.apiUrl}/Student/notifications`, this.getAuthHeaders());
+  }
+
+  /**
+   * Gets a single book by ID.
+   * @param id Book ID
+   * @returns Observable with book details
+   */
+  getBook(id: number): Observable<Book> {
+    return this.http.get<Book>(`${this.apiUrl}/Librarian/books/${id}`, this.getAuthHeaders());
   }
 }

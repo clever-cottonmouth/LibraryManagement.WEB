@@ -18,6 +18,8 @@ import { SearchBooksComponent } from './student/search-books/search-books.compon
 import { IssuedBooksComponent } from './student/issued-books/issued-books.component';
 import { ProfileComponent } from './student/profile/profile.component';
 import { StudentNotificationsComponent } from './student/notifications/notifications.component';
+import { AddBookComponent } from './librarian/add-book/add-book.component';
+import { EditBookComponent } from './librarian/edit-book/edit-book.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,6 +35,8 @@ const routes: Routes = [
       { path: 'students', component: ManageStudentsComponent },
       { path: 'students/add', component: AddStudentComponent },
       { path: 'books', component: ManageBooksComponent },
+      { path: 'books/add', component: AddBookComponent },
+      { path: 'books/:id/edit', component: EditBookComponent },
       { path: 'issue', component: IssueBookComponent },
       { path: 'return', component: ReturnBookComponent },
       { path: 'settings', component: SettingsComponent },

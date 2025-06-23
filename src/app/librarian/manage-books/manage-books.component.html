@@ -1,18 +1,29 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>Manage Books</mat-card-title>
+    <mat-card-subtitle>View and manage Books</mat-card-subtitle>
     <div class="header-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/librarian/books/add"
+        class="add-book-btn">
+        <mat-icon>add</mat-icon>
+        Add Book
+      </button>
     </div>
   </mat-card-header>
   <mat-card-content>
-
-    <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px;">
-      <mat-form-field style="flex: 1;">
+    <!-- Search Section -->
+    <div class="search-section">
+      <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search Books</mat-label>
-        <input matInput #searchInput (input)="searchBooks(searchInput.value)">
+        <input matInput (input)="searchBooks($any($event.target).value)" placeholder="Search by title or author...">
+        <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-
     </div>
+
+    <!-- Students Table -->
     <table mat-table [dataSource]="books">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -29,17 +40,31 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let book">
-          <button mat-icon-button (click)="editBook(book)"><mat-icon>edit</mat-icon></button>
-          <mat-slide-toggle
-            [checked]="book.isActive"
-            (change)="toggleBookStatus(book)"
-            matTooltip="Toggle book status">
-          </mat-slide-toggle>
-          <button mat-icon-button color="warn" (click)="deleteBook(book.id)"><mat-icon>delete</mat-icon></button>
+          <div class="action-buttons">
+            <button mat-icon-button [routerLink]="['/librarian/books', book.id, 'edit']" matTooltip="Edit Book"><mat-icon>edit</mat-icon></button>
+            <mat-slide-toggle
+              [checked]="book.isActive"
+              (change)="toggleBookStatus(book)"
+              matTooltip="Toggle book status">
+            </mat-slide-toggle>
+            <button mat-icon-button color="warn" (click)="deleteBook(book.id)" matTooltip="Delete Book"><mat-icon>delete</mat-icon></button>
+          </div>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="['title', 'author', 'stock', 'actions']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['title', 'author', 'stock', 'actions']"></tr>
     </table>
+    <!-- Loading and Empty States -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading books...</p>
+    </div>
+    <div *ngIf="!loading && books.length === 0" class="empty-state">
+      <mat-icon>menu_book</mat-icon>
+      <p>No books found</p>
+    </div>
+
+    <!-- Statistics -->
+
   </mat-card-content>
 </mat-card>
