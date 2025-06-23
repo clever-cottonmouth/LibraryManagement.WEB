@@ -235,7 +235,8 @@ export class LibraryService {
    * @returns Observable with student details
    */
   getStudent(id: number): Observable<Student> {
-    return this.http.get<Student>(`${this.apiUrl}/Librarian/students/${id}`, this.getAuthHeaders());
+    return this.http.get<any>(`${this.apiUrl}/Librarian/students/${id}`, this.getAuthHeaders())
+      .pipe(map(res => res.data));
   }
 
   /**
