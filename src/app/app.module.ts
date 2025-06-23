@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -82,6 +83,7 @@ import { StudentNotificationsComponent } from './student/notifications/notificat
     MatTooltipModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    MatDividerModule,
     RouterModule,
     AppRoutingModule
   ],

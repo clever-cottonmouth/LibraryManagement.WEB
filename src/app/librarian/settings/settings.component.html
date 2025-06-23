@@ -3,6 +3,14 @@
     <mat-card-title>Library Settings</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+    <div *ngIf="student" class="student-details">
+      <h3>Student Details</h3>
+      <p><strong>ID:</strong> {{student.id}}</p>
+      <p><strong>Name:</strong> {{student.name}}</p>
+      <p><strong>Email:</strong> {{student.email}}</p>
+      <p><strong>Status:</strong> {{student.isActive ? 'Active' : 'Inactive'}} | {{student.isVerified ? 'Verified' : 'Unverified'}}</p>
+      <mat-divider></mat-divider>
+    </div>
     <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
       <mat-form-field appearance="outline">
         <mat-label>Maximum Book Limit per Student</mat-label>

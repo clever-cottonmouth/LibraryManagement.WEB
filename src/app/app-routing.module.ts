@@ -36,6 +36,7 @@ const routes: Routes = [
       { path: 'issue', component: IssueBookComponent },
       { path: 'return', component: ReturnBookComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'settings/:studentId', component: SettingsComponent },
       { path: 'notifications', component: NotificationsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]

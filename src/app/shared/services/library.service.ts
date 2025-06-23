@@ -227,4 +227,13 @@ export class LibraryService {
   getSettings(): Observable<LibrarySettings> {
     return this.http.get<LibrarySettings>(`${this.apiUrl}/Librarian/settings`, this.getAuthHeaders());
   }
+
+  /**
+   * Gets a single student by ID.
+   * @param id Student ID
+   * @returns Observable with student details
+   */
+  getStudent(id: number): Observable<Student> {
+    return this.http.get<Student>(`${this.apiUrl}/Librarian/students/${id}`, this.getAuthHeaders());
+  }
 }
