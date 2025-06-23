@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Notifications</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading notifications...</p>
+    </div>
+    <table mat-table [dataSource]="notifications" *ngIf="!loading && notifications.length > 0">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let n">{{n.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <td mat-cell *matCellDef="let n">{{n.message}}</td>
+      </ng-container>
+      <ng-container matColumnDef="sentDate">
+        <th mat-header-cell *matHeaderCellDef>Sent Date</th>
+        <td mat-cell *matCellDef="let n">{{n.sentDate | date:'short'}}</td>
+      </ng-container>
+      <ng-container matColumnDef="reply">
+        <th mat-header-cell *matHeaderCellDef>Reply</th>
+        <td mat-cell *matCellDef="let n">{{n.reply || '-'}}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['id', 'message', 'sentDate', 'reply']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'message', 'sentDate', 'reply']"></tr>
+    </table>
+    <div *ngIf="!loading && notifications.length === 0" class="empty-state">
+      <mat-icon>notifications_off</mat-icon>
+      <p>No notifications found</p>
+    </div>
+  </mat-card-content>
+</mat-card>

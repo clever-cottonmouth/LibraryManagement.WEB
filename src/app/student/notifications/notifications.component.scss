@@ -1,0 +1,15 @@
+.loading-container, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0;
+  color: #888;
+}
+
+mat-card-content {
+  table {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}

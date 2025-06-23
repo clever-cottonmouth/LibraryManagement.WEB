@@ -236,4 +236,20 @@ export class LibraryService {
   getStudent(id: number): Observable<Student> {
     return this.http.get<Student>(`${this.apiUrl}/Librarian/students/${id}`, this.getAuthHeaders());
   }
+
+  /**
+   * Gets all notifications for the librarian.
+   * @returns Observable with list of notifications
+   */
+  getNotifications(): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${this.apiUrl}/Librarian/notifications`, this.getAuthHeaders());
+  }
+
+  /**
+   * Gets notifications for the currently logged-in student.
+   * @returns Observable with list of notifications
+   */
+  getStudentNotifications(): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${this.apiUrl}/Student/notifications`, this.getAuthHeaders());
+  }
 }
