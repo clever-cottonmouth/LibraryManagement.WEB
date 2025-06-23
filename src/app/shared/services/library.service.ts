@@ -75,6 +75,24 @@ export class LibraryService {
   }
 
   /**
+   * Activates a book.
+   * @param id Book ID
+   * @returns Observable with response
+   */
+  activateBook(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/Librarian/books/${id}/activate`, {}, this.getAuthHeaders());
+  }
+
+  /**
+   * Deletes a book.
+   * @param id Book ID
+   * @returns Observable with response
+   */
+  deleteBook(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/Librarian/books/${id}`, this.getAuthHeaders());
+  }
+
+  /**
    * Issues a book to a student.
    * @param issue Book issue details
    * @returns Observable with response
@@ -191,5 +209,22 @@ export class LibraryService {
 
   listBooksStudent(): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.apiUrl}/Student/books/list`, this.getAuthHeaders());
+  }
+
+  /**
+   * Deletes a student.
+   * @param id Student ID
+   * @returns Observable with response
+   */
+  deleteStudent(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/Librarian/students/${id}`, this.getAuthHeaders());
+  }
+
+  /**
+   * Gets library settings.
+   * @returns Observable with library settings
+   */
+  getSettings(): Observable<LibrarySettings> {
+    return this.http.get<LibrarySettings>(`${this.apiUrl}/Librarian/settings`, this.getAuthHeaders());
   }
 }

@@ -29,7 +29,8 @@ export class ManageBooksComponent implements OnInit {
       publication: ['', Validators.required],
       stock: [0, [Validators.required, Validators.min(0)]],
       pdfUrl: [''],
-      wordUrl: ['']
+      wordUrl: [''],
+      isActive: [true]
     });
   }
 
@@ -63,7 +64,7 @@ export class ManageBooksComponent implements OnInit {
     observable.subscribe({
       next: () => {
         this.snackBar.open('Book saved', 'Close', { duration: 3000 });
-        this.bookForm.reset({ id: 0, stock: 0 });
+        this.bookForm.reset({ id: 0, stock: 0, isActive: true });
         this.selectedBook = null;
         this.listBooks();
       },
@@ -85,13 +86,33 @@ export class ManageBooksComponent implements OnInit {
     this.bookForm.patchValue(book);
   }
 
-  deactivateBook(id: number): void {
-    this.libraryService.deactivateBook(id).subscribe({
+  toggleBookStatus(book: Book): void {
+    const observable = book.isActive
+      ? this.libraryService.deactivateBook(book.id)
+            : this.libraryService.activateBook(book.id);
+
+    observable.subscribe({
       next: () => {
-        this.snackBar.open('Book deactivated', 'Close', { duration: 3000 });
+        this.snackBar.open(`Book ${book.isActive ? 'deactivated' : 'activated'}`, 'Close', { duration: 3000 });
         this.listBooks();
       },
-      error: (err) => this.snackBar.open('Failed to deactivate book', 'Close', { duration: 3000 })
+      error: (err) => {
+        this.snackBar.open(`Failed to ${book.isActive ? 'deactivate' : 'activate'} book`, 'Close', { duration: 3000 });
+        // Optionally, revert the toggle state on error
+        this.listBooks();
+      }
     });
+  }
+
+  deleteBook(id: number): void {
+    if (confirm('Are you sure you want to delete this book?')) {
+      this.libraryService.deleteBook(id).subscribe({
+        next: () => {
+          this.snackBar.open('Book permanently deleted', 'Close', { duration: 3000 });
+          this.listBooks();
+        },
+        error: (err) => this.snackBar.open('Failed to delete book', 'Close', { duration: 3000 })
+      });
+    }
   }
 }

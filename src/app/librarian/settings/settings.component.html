@@ -1,0 +1,33 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Library Settings</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+      <mat-form-field appearance="outline">
+        <mat-label>Maximum Book Limit per Student</mat-label>
+        <input matInput type="number" formControlName="maxBookLimit" min="1" required>
+        <mat-error *ngIf="settingsForm.get('maxBookLimit')?.hasError('required')">
+          Maximum book limit is required
+        </mat-error>
+        <mat-error *ngIf="settingsForm.get('maxBookLimit')?.hasError('min')">
+          Value must be at least 1
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Penalty Per Day (Rs)</mat-label>
+        <input matInput type="number" formControlName="penaltyPerDay" min="0" required>
+        <mat-error *ngIf="settingsForm.get('penaltyPerDay')?.hasError('required')">
+          Penalty per day is required
+        </mat-error>
+        <mat-error *ngIf="settingsForm.get('penaltyPerDay')?.hasError('min')">
+          Value cannot be negative
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="settingsForm.invalid || loading">
+        Save
+      </button>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </form>
+  </mat-card-content>
+</mat-card>

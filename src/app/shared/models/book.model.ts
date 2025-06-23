@@ -5,4 +5,5 @@ export interface Book {
   publication: string;
   stock: number;
   pdfUrl?: string;
+  isActive: boolean;
 }

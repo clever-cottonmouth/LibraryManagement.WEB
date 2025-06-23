@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -78,6 +80,8 @@ import { StudentNotificationsComponent } from './student/notifications/notificat
     MatChipsModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatSlideToggleModule,
+    MatProgressBarModule,
     RouterModule,
     AppRoutingModule
   ],

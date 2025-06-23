@@ -110,4 +110,16 @@ export class ManageStudentsComponent implements OnInit {
   get verifiedStudentsCount(): number {
     return this.students.filter(student => student.isVerified).length;
   }
+
+  deleteStudent(id: number): void {
+    if (confirm('Are you sure you want to delete this student?')) {
+      this.libraryService.deleteStudent(id).subscribe({
+        next: () => {
+          this.snackBar.open('Student permanently deleted', 'Close', { duration: 3000 });
+          this.loadStudents();
+        },
+        error: (err) => this.snackBar.open('Failed to delete student', 'Close', { duration: 3000 })
+      });
+    }
+  }
 }

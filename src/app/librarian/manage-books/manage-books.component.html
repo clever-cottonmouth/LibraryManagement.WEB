@@ -50,7 +50,12 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let book">
           <button mat-icon-button (click)="editBook(book)"><mat-icon>edit</mat-icon></button>
-          <button mat-icon-button (click)="deactivateBook(book.id)"><mat-icon>delete</mat-icon></button>
+          <mat-slide-toggle
+            [checked]="book.isActive"
+            (change)="toggleBookStatus(book)"
+            matTooltip="Toggle book status">
+          </mat-slide-toggle>
+          <button mat-icon-button color="warn" (click)="deleteBook(book.id)"><mat-icon>delete</mat-icon></button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="['title', 'author', 'stock', 'actions']"></tr>
