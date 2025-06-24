@@ -38,12 +38,25 @@ export class AddStudentComponent {
       };
 
       this.libraryService.addStudent(student).subscribe({
-        next: () => {
+        next: (response) => {
+          if (response && response.success === false) {
+            this.snackBar.open(response.message || 'Failed to add student', 'Close', { duration: 3000 });
+            this.loading = false;
+            return;
+          }
           this.snackBar.open('Student added successfully', 'Close', { duration: 3000 });
           this.router.navigate(['/librarian/students']);
         },
         error: (error) => {
-          this.snackBar.open(error.error || 'Failed to add student', 'Close', { duration: 3000 });
+          let errorMsg = 'Failed to add student';
+          if (error?.error) {
+            if (typeof error.error === 'string') {
+              errorMsg = error.error;
+            } else if (typeof error.error === 'object' && error.error.message) {
+              errorMsg = error.error.message;
+            }
+          }
+          this.snackBar.open(errorMsg, 'Close', { duration: 3000 });
           this.loading = false;
           console.error('Error adding student:', error);
         }

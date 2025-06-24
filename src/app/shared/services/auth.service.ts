@@ -44,7 +44,7 @@ export class AuthService {
   librarianLogin(login: Login): Observable<any> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/Librarian/login`, login)
       .pipe(
-        tap(response => this.setSession(response.token, 'Librarian'))
+        tap(response => this.setSession(response.token, 'Librarian', login.email))
       );
   }
 
@@ -56,7 +56,7 @@ export class AuthService {
   studentLogin(login: Login): Observable<any> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/Student/login`, login)
       .pipe(
-        tap(response => this.setSession(response.token, 'Student'))
+        tap(response => this.setSession(response.token, 'Student', login.email))
       );
   }
 
@@ -101,6 +101,7 @@ export class AuthService {
    */
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
@@ -145,8 +146,9 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  private setSession(token: string, role: string): void {
+  private setSession(token: string, role: string, email:string ): void {
     localStorage.setItem('token', token);
+    localStorage.setItem('email',email);
     const decoded = this.jwtHelper.decodeToken(token);
     this.currentUserSubject.next(decoded.sub);
   }
