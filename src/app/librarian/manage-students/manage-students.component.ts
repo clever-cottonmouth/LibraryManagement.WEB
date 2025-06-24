@@ -88,20 +88,7 @@ export class ManageStudentsComponent implements OnInit {
     });
   }
 
-  sendNotification(studentId: number): void {
-    const message = prompt('Enter notification message:');
-    if (message && message.trim()) {
-      this.libraryService.sendNotification(studentId, message.trim()).subscribe({
-        next: () => {
-          this.snackBar.open('Notification sent successfully', 'Close', { duration: 3000 });
-        },
-        error: (error) => {
-          this.snackBar.open('Failed to send notification', 'Close', { duration: 3000 });
-          console.error('Error sending notification:', error);
-        }
-      });
-    }
-  }
+
 
   get activeStudentsCount(): number {
     return this.students.filter(student => student.isActive).length;

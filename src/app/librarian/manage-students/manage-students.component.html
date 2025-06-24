@@ -79,13 +79,7 @@
                 matTooltip="{{student.isActive ? 'Deactivate' : 'Activate'}} Student">
                 <mat-icon>{{student.isActive ? 'block' : 'check_circle'}}</mat-icon>
               </button>
-              <button
-                mat-icon-button
-                color="accent"
-                (click)="sendNotification(student.id)"
-                matTooltip="Send Notification">
-                <mat-icon>notifications</mat-icon>
-              </button>
+
               <button
                 mat-icon-button
                 color="warn"

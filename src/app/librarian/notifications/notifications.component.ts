@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryService } from '../../shared/services/library.service';
 import { Notification } from '../../shared/models/notification.model';
-import { Student } from '../../shared/models/student.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -11,11 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NotificationsComponent implements OnInit {
   notifications: Notification[] = [];
-  students: Student[] = [];
   loading = false;
   editingReplyId: number | null = null;
   replyText: { [id: number]: string } = {};
-  selectedStudentId: number | null = null;
   newMessage: string = '';
   sending = false;
 
@@ -23,7 +20,6 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchNotifications();
-    this.fetchStudents();
   }
 
   fetchNotifications(): void {
@@ -37,14 +33,6 @@ export class NotificationsComponent implements OnInit {
       },
       error: () => {
         this.loading = false;
-      }
-    });
-  }
-
-  fetchStudents(): void {
-    this.libraryService.listStudents().subscribe({
-      next: (students) => {
-        this.students = students;
       }
     });
   }
@@ -73,13 +61,12 @@ export class NotificationsComponent implements OnInit {
   }
 
   sendMessage(): void {
-    if (!this.selectedStudentId || !this.newMessage.trim()) return;
+    if (!this.newMessage.trim()) return;
     this.sending = true;
-    this.libraryService.sendNotification(this.selectedStudentId, this.newMessage.trim()).subscribe({
+    this.libraryService.sendNotification(this.newMessage.trim()).subscribe({
       next: () => {
         this.snackBar.open('Message sent successfully', 'Close', { duration: 3000 });
         this.newMessage = '';
-        this.selectedStudentId = null;
         this.sending = false;
         this.fetchNotifications();
       },

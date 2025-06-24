@@ -165,13 +165,12 @@ export class LibraryService {
   }
 
   /**
-   * Sends a notification to a student.
-   * @param studentId Student ID
+   * Sends a notification to all students.
    * @param message Notification message
    * @returns Observable with response
    */
-  sendNotification(studentId: number, message: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Librarian/notifications/${studentId}`, message, this.getAuthHeaders());
+  sendNotification(message: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Librarian/sendNotifications`, { message }, this.getAuthHeaders());
   }
 
   /**

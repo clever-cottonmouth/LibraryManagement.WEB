@@ -4,18 +4,12 @@
   </mat-card-header>
   <mat-card-content>
     <form style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
-      <mat-form-field appearance="outline" style="min-width: 200px;">
-        <mat-label>Select Student</mat-label>
-        <mat-select [(ngModel)]="selectedStudentId" name="studentSelect" required>
-          <mat-option *ngFor="let s of students" [value]="s.id">{{s.name}} ({{s.email}})</mat-option>
-        </mat-select>
-      </mat-form-field>
       <mat-form-field appearance="outline" style="flex: 1; min-width: 200px;">
-        <mat-label>Message</mat-label>
+        <mat-label>Message to All Students</mat-label>
         <input matInput [(ngModel)]="newMessage" name="messageInput" required>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="button" (click)="sendMessage()" [disabled]="!selectedStudentId || !newMessage.trim() || sending">
-        Send
+      <button mat-raised-button color="primary" type="button" (click)="sendMessage()" [disabled]="!newMessage.trim() || sending">
+        Send to All
       </button>
     </form>
     <div *ngIf="loading" class="loading-container">
