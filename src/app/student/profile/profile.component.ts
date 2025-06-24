@@ -72,8 +72,8 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.loadingPassword = true;
-    const { oldPassword, newPassword } = this.passwordForm.value;
-    this.authService.changePassword({ oldPassword, newPassword }).subscribe({
+    const { oldPassword, newPassword, confirmPassword } = this.passwordForm.value;
+    this.authService.changePassword({ oldPassword, newPassword, confirmPassword }).subscribe({
       next: () => {
         this.snackBar.open('Password changed successfully', 'Close', { duration: 3000 });
         this.passwordForm.reset();

@@ -93,7 +93,8 @@ export class AuthService {
    * @returns Observable with response
    */
   changePassword(change: ChangePassword): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Student/change-password`, change, this.getAuthHeaders());
+    let email=localStorage.getItem('email');
+    return this.http.put(`${this.apiUrl}/Student/change-password/${email}`, change, this.getAuthHeaders());
   }
 
   /**
