@@ -270,8 +270,8 @@ export class LibraryService {
    * Gets notifications for the currently logged-in student.
    * @returns Observable with list of notifications
    */
-  getStudentNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.apiUrl}/Student/notifications`, this.getAuthHeaders());
+  getStudentNotifications(email:string): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${this.apiUrl}/Student/notifications/${email}`, this.getAuthHeaders());
   }
 
   /**

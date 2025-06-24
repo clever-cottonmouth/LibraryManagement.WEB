@@ -22,7 +22,17 @@
       </ng-container>
       <ng-container matColumnDef="reply">
         <th mat-header-cell *matHeaderCellDef>Reply</th>
-        <td mat-cell *matCellDef="let n">{{n.reply || '-'}}</td>
+        <td mat-cell *matCellDef="let n; let i = index">
+          <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+            <mat-form-field appearance="outline" style="flex: 1; margin: 0;">
+              <input matInput placeholder="Type reply..." [(ngModel)]="n.replyText" />
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="sendReply(n, i)">
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="n.reply">{{n.reply}}</div>
+        </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="['id', 'message', 'sentDate', 'reply']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['id', 'message', 'sentDate', 'reply']"></tr>
