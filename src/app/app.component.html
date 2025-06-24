@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>Library Management System</span>
+  <span style="cursor:pointer" (click)="goToDashboard()">Library Management System</span>
   <span class="spacer"></span>
   <button mat-button *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</button>
 </mat-toolbar>
