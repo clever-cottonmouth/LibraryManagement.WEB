@@ -25,4 +25,8 @@ export class AppComponent {
       this.router.navigate(['/login']);
     }
   }
+
+  get userRole(): string | null {
+    return this.authService.getRole();
+  }
 }

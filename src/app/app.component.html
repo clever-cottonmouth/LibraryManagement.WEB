@@ -1,6 +1,8 @@
-<mat-toolbar color="primary">
-  <span style="cursor:pointer" (click)="goToDashboard()">Library Management System</span>
-  <span class="spacer"></span>
-  <button mat-button *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</button>
+<mat-toolbar color="primary" class="main-toolbar">
+  <span class="brand" (click)="goToDashboard()">Library Management System</span>
+  <div class="auth-section" *ngIf="authService.isAuthenticated()">
+    <span class="user-role">{{ userRole }}</span>
+    <button mat-button (click)="authService.logout()">Logout</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

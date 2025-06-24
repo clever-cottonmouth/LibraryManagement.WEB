@@ -1,0 +1,19 @@
+.main-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  cursor: pointer;
+}
+
+.auth-section {
+  display: flex;
+  align-items: center;
+}
+
+.user-role {
+  margin-right: 16px;
+  font-weight: bold;
+}
