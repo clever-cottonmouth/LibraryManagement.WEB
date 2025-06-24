@@ -1,7 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LibraryService } from '../../shared/services/library.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { BookIssue } from '../../shared/models/book-issue.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-issued-books',
-  template: '<h1>Issued Books</h1>'
+  templateUrl: './issued-books.component.html',
+  styleUrls: ['./issued-books.component.scss']
 })
-export class IssuedBooksComponent {}
+export class IssuedBooksComponent implements OnInit {
+  issuedBooks: BookIssue[] = [];
+  loading = false;
+
+  constructor(
+    private libraryService: LibraryService,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchIssuedBooks();
+  }
+
+  fetchIssuedBooks(): void {
+    this.loading = true;
+    const email = localStorage.getItem('email');
+
+    if (!email) {
+      this.snackBar.open('User not authenticated', 'Close', { duration: 3000 });
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.libraryService.getStudentIssuedBooks(email).subscribe({
+      next: (response: any) => {
+        this.issuedBooks = response.data ? response.data : response;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.loading = false;
+        const errorMessage = error?.error?.message || 'Failed to fetch issued books';
+        this.snackBar.open(errorMessage, 'Close', { duration: 3000 });
+      }
+    });
+  }
+}

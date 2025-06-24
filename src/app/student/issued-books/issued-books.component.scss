@@ -1,0 +1,28 @@
+.issued-books-container {
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.no-books {
+  text-align: center;
+  color: #888;
+  margin-top: 24px;
+}
+
+table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+th, td {
+  padding: 8px 12px;
+}

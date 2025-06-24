@@ -33,7 +33,12 @@ export class StudentDashboardComponent implements OnInit {
 
   fetchIssuedBooks(): void {
     this.loading = true;
-    this.libraryService.getStudentIssuedBooks().subscribe({
+    const email = localStorage.getItem('email');
+    if (!email) {
+      this.loading = false;
+      return;
+    }
+    this.libraryService.getStudentIssuedBooks(email).subscribe({
       next: (response: any) => {
         const today = new Date();
         const issues = response.data ? response.data : response;

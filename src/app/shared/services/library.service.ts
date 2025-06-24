@@ -178,8 +178,8 @@ export class LibraryService {
    * Gets a student's issued books.
    * @returns Observable with list of book issues
    */
-  getStudentIssuedBooks(): Observable<BookIssue[]> {
-    return this.http.get<BookIssue[]>(`${this.apiUrl}/Student/issued-books`, this.getAuthHeaders());
+  getStudentIssuedBooks(email: string): Observable<BookIssue[]> {
+    return this.http.get<any>(`${this.apiUrl}/Student/issued-books/${email}`, this.getAuthHeaders());
   }
 
   /**

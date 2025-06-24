@@ -1,0 +1,30 @@
+<div class="issued-books-container">
+  <h2>My Issued Books</h2>
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="32"></mat-spinner>
+    <p>Loading issued books...</p>
+  </div>
+  <table *ngIf="!loading && issuedBooks.length > 0" mat-table [dataSource]="issuedBooks" class="mat-elevation-z8">
+    <ng-container matColumnDef="bookId">
+      <th mat-header-cell *matHeaderCellDef> Book ID </th>
+      <td mat-cell *matCellDef="let issue"> {{ issue.bookId }} </td>
+    </ng-container>
+    <ng-container matColumnDef="issueDate">
+      <th mat-header-cell *matHeaderCellDef> Issue Date </th>
+      <td mat-cell *matCellDef="let issue"> {{ issue.issueDate | date }} </td>
+    </ng-container>
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef> Due Date </th>
+      <td mat-cell *matCellDef="let issue"> {{ issue.dueDate | date }} </td>
+    </ng-container>
+    <ng-container matColumnDef="penalty">
+      <th mat-header-cell *matHeaderCellDef> Penalty </th>
+      <td mat-cell *matCellDef="let issue"> {{ issue.penalty }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['bookId', 'issueDate', 'dueDate', 'penalty']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['bookId', 'issueDate', 'dueDate', 'penalty'];"></tr>
+  </table>
+  <div *ngIf="!loading && issuedBooks.length === 0" class="no-books">
+    <p>No books issued.</p>
+  </div>
+</div>
