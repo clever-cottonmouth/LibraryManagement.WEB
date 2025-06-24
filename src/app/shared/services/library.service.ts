@@ -188,7 +188,8 @@ export class LibraryService {
    * @returns Observable with response
    */
   updateProfile(student: Student): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Student/profile`, student, this.getAuthHeaders());
+    let email = localStorage.getItem('email');
+    return this.http.patch(`${this.apiUrl}/Student/profile-update/${email}`, student, this.getAuthHeaders());
   }
 
   /**

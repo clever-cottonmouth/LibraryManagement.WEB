@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.profileForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      email: [{ value: '', disabled: true }],
+      name: ['', Validators.required]
     });
     this.passwordForm = this.fb.group({
       oldPassword: ['', Validators.required],
@@ -38,9 +38,10 @@ export class ProfileComponent implements OnInit {
   }
 
   loadProfile(): void {
-    // Optionally, fetch current student info from backend or localStorage
-    // For now, just leave blank for editing
-    // You can enhance this to prefill with actual data if available
+    // Prefill with localStorage values if available
+    const name = localStorage.getItem('name') || '';
+    const email = localStorage.getItem('email') || '';
+    this.profileForm.patchValue({ name, email });
   }
 
   onUpdateProfile(): void {
@@ -51,9 +52,7 @@ export class ProfileComponent implements OnInit {
     this.loadingProfile = true;
     const student: Student = {
       ...this.profileForm.value,
-      id: 0, // Backend should get ID from token
-      isActive: true,
-      isVerified: true
+      email:localStorage.getItem('email')
     };
     this.libraryService.updateProfile(student).subscribe({
       next: () => {

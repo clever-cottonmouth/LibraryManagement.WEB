@@ -44,6 +44,7 @@ export class StudentDashboardComponent implements OnInit {
         const issues = response.data ? response.data : response;
         this.issuedBooks = issues;
         this.overdueBooks = issues.filter((issue: BookIssue) => new Date(issue.dueDate) < today);
+        localStorage.setItem('name',response[0].student.name)
         this.loading = false;
       },
       error: () => {
