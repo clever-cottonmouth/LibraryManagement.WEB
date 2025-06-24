@@ -74,7 +74,7 @@ export class ManageStudentsComponent implements OnInit {
     const action = student.isActive ? 'deactivate' : 'activate';
     const observable = student.isActive
       ? this.libraryService.deactivateStudent(student.id)
-      : this.libraryService.verifyStudent(student.id);
+      : this.libraryService.activateStudents(student.id);
 
     observable.subscribe({
       next: () => {

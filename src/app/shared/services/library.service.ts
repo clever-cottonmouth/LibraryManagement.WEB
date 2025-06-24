@@ -36,7 +36,11 @@ export class LibraryService {
    * @returns Observable with response
    */
   deactivateStudent(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Librarian/students/${id}/deactivate`, {}, this.getAuthHeaders());
+    return this.http.patch(`${this.apiUrl}/Librarian/students/${id}/deactivate`, {}, this.getAuthHeaders());
+  }
+
+  activateStudents(id:number):Observable<any>{
+    return this.http.patch(`${this.apiUrl}/Librarian/students/${id}/activate`, {}, this.getAuthHeaders());
   }
 
   /**
@@ -45,7 +49,7 @@ export class LibraryService {
    * @returns Observable with response
    */
   verifyStudent(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Librarian/students/${id}/verify`, {}, this.getAuthHeaders());
+    return this.http.patch(`${this.apiUrl}/Librarian/students/${id}/verify`, {}, this.getAuthHeaders());
   }
 
   /**
