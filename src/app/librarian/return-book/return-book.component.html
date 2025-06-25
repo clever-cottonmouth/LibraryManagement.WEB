@@ -19,7 +19,7 @@
         <mat-label>Issued Book</mat-label>
         <mat-select formControlName="issueId" required [disabled]="issuedBooks.length === 0">
           <mat-option *ngFor="let issue of issuedBooks" [value]="issue.id">
-            {{issue.bookId}} - {{issue.issueDate}} <!-- You can show book title if you join Book info -->
+            {{ getBookTitle(issue.bookId) }} (Issued: {{ issue.issueDate }})
           </mat-option>
         </mat-select>
         <mat-error *ngIf="returnForm.get('issueId')?.hasError('required')">Book is required</mat-error>

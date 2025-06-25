@@ -33,7 +33,16 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Due Date</mat-label>
-        <input matInput type="date" formControlName="dueDate">
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="dueDate"
+          required
+          [min]="issueForm.get('issueDate')?.value"
+        >
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="issueForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
       </mat-form-field>
 
       <div class="form-actions">

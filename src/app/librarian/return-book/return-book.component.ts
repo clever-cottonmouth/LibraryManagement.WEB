@@ -17,6 +17,7 @@ export class ReturnBookComponent implements OnInit {
   issuedBooks: BookIssue[] = [];
   selectedBook: BookIssue | null = null;
   loading = false;
+  books: Book[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +32,7 @@ export class ReturnBookComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchStudents();
+    this.fetchBooks();
   }
 
   fetchStudents(): void {
@@ -40,6 +42,20 @@ export class ReturnBookComponent implements OnInit {
       },
       error: () => this.snackBar.open('Failed to load students', 'Close', { duration: 3000 })
     });
+  }
+
+  fetchBooks(): void {
+    this.libraryService.listBooks().subscribe({
+      next: (response: any) => {
+        this.books = response.data ? response.data : response;
+      },
+      error: () => this.snackBar.open('Failed to load books', 'Close', { duration: 3000 })
+    });
+  }
+
+  getBookTitle(bookId: number): string {
+    const book = this.books.find(b => b.id === bookId);
+    return book ? book.title : 'Unknown Book';
   }
 
   onStudentChange(): void {
