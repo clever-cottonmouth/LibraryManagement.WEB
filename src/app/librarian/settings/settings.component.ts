@@ -39,8 +39,11 @@ export class SettingsComponent implements OnInit {
   loadSettings(): void {
     this.loading = true;
     this.libraryService.getSettings().subscribe({
-      next: (settings: LibrarySettings) => {
-        this.settingsForm.patchValue(settings);
+      next: (settingsArray: LibrarySettings[]) => {
+        const settings = settingsArray[0]; // Get the first (and only) settings object
+        if (settings) {
+          this.settingsForm.patchValue(settings);
+        }
         this.loading = false;
       },
       error: () => {

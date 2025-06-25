@@ -243,8 +243,8 @@ export class LibraryService {
    * Gets library settings.
    * @returns Observable with library settings
    */
-  getSettings(): Observable<LibrarySettings> {
-    return this.http.get<LibrarySettings>(`${this.apiUrl}/Librarian/settings`, this.getAuthHeaders());
+  getSettings(): Observable<LibrarySettings[]> {
+    return this.http.get<LibrarySettings[]>(`${this.apiUrl}/Librarian/settings`, this.getAuthHeaders());
   }
 
   /**
