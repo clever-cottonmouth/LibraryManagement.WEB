@@ -65,14 +65,7 @@ export class RegisterComponent implements AfterViewInit {
           this.router.navigate(['/login']);
         },
         error: (err) => {
-          // Handle object-based errors from the backend
-          let errorMessage = 'Registration failed';
-          if (err.error && typeof err.error === 'object' && err.error.message) {
-            errorMessage = err.error.message;
-          } else if (err.error && typeof err.error === 'string') {
-            errorMessage = err.error;
-          }
-          this.snackBar.open(errorMessage, 'Close', { duration: 3000 });
+          this.snackBar.open('Registration failed', 'Close', { duration: 3000 });
         }
       });
     }
