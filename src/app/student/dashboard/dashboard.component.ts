@@ -18,6 +18,7 @@ export class StudentDashboardComponent implements OnInit {
   notifications: Notification[] = [];
   unreadNotifications: number = 0;
   loading = false;
+  isVerified: boolean | null = null;
 
   constructor(
     private libraryService: LibraryService,
@@ -29,6 +30,18 @@ export class StudentDashboardComponent implements OnInit {
     this.studentName = this.authService.getCurrentUser() || 'Student';
     this.fetchIssuedBooks();
     this.fetchNotifications();
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.libraryService.isStudentVerified(email).subscribe({
+        next: (res) => {
+          const result: any = res;
+          this.isVerified = result.IsVerified ?? result.isVerified ?? null;
+        },
+        error: () => {
+          this.isVerified = null;
+        }
+      });
+    }
   }
 
   fetchIssuedBooks(): void {

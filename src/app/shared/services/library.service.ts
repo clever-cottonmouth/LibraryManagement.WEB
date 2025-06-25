@@ -282,4 +282,8 @@ export class LibraryService {
   getBook(id: number): Observable<Book> {
     return this.http.get<Book>(`${this.apiUrl}/Librarian/books/${id}`, this.getAuthHeaders());
   }
+
+  isStudentVerified(email: string) {
+    return this.http.get<{ IsVerified: boolean }>(`${this.apiUrl}/Student/isVerified/${email}`);
+  }
 }

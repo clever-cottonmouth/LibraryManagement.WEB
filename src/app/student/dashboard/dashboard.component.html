@@ -1,41 +1,56 @@
-<div class="dashboard-container">
+
+
+<div class="dashboard-container" >
   <h2>Welcome, {{ studentName }}!</h2>
 
-  <div class="summary-cards">
-    <mat-card class="summary-card issued">
-      <mat-card-title>Books Issued</mat-card-title>
-      <mat-card-content>
-        <h1>{{ issuedBooks.length }}</h1>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="summary-card overdue">
-      <mat-card-title>Overdue Books</mat-card-title>
-      <mat-card-content>
-        <h1>{{ overdueBooks.length }}</h1>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="summary-card notifications">
-      <mat-card-title>Notifications</mat-card-title>
-      <mat-card-content>
-        <h1>{{ unreadNotifications }}</h1>
-      </mat-card-content>
-    </mat-card>
+  <div *ngIf="isVerified === false" class="alert alert-warning" style="margin-bottom: 16px; color: #856404; background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 4px;">
+    Please wait, your profile is under verification process.
   </div>
 
-  <div class="quick-actions">
-    <button mat-raised-button color="primary" (click)="goTo('/student/search')">
-      <mat-icon>search</mat-icon> Search Books
-    </button>
-    <button mat-raised-button color="accent" (click)="goTo('/student/issued')">
-      <mat-icon>book</mat-icon> My Issued Books
-    </button>
-    <button mat-raised-button color="warn" (click)="goTo('/student/notifications')">
-      <mat-icon>notifications</mat-icon> Notifications
-    </button>
-    <button mat-raised-button (click)="goTo('/student/profile')">
-      <mat-icon>person</mat-icon> Profile
-    </button>
+
+  <div *ngIf="isVerified === true">
+    <div class="summary-cards">
+      <mat-card class="summary-card issued">
+        <mat-card-title>Books Issued</mat-card-title>
+        <mat-card-content>
+          <h1>{{ issuedBooks.length }}</h1>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="summary-card overdue">
+        <mat-card-title>Overdue Books</mat-card-title>
+        <mat-card-content>
+          <h1>{{ overdueBooks.length }}</h1>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="summary-card notifications">
+        <mat-card-title>Notifications</mat-card-title>
+        <mat-card-content>
+          <h1>{{ unreadNotifications }}</h1>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+
+    <div class="quick-actions">
+      <button mat-raised-button color="primary" (click)="goTo('/student/search')">
+        <mat-icon>search</mat-icon> Search Books
+      </button>
+      <button mat-raised-button color="accent" (click)="goTo('/student/issued')">
+        <mat-icon>book</mat-icon> My Issued Books
+      </button>
+      <button mat-raised-button color="warn" (click)="goTo('/student/notifications')">
+        <mat-icon>notifications</mat-icon> Notifications
+      </button>
+      <button mat-raised-button (click)="goTo('/student/profile')">
+        <mat-icon>person</mat-icon> Profile
+      </button>
+    </div>
+
   </div>
+
+
+
+
 
   <!-- Optional: Recent activity section -->
   <!-- <mat-card class="recent-activity">
