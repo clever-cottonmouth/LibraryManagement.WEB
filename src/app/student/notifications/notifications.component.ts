@@ -27,6 +27,8 @@ export class StudentNotificationsComponent implements OnInit {
     }
     this.libraryService.getStudentNotifications(email).subscribe({
       next: (notifications) => {
+        localStorage.setItem('notificationId', notifications[0].id.toString());
+
         this.notifications = notifications;
         this.loading = false;
       },
@@ -37,8 +39,21 @@ export class StudentNotificationsComponent implements OnInit {
   }
 
   sendReply(notification: any, index: number): void {
-    // Placeholder: log the reply text
-    console.log('Reply for notification', notification.id, ':', notification.replyText);
-    // Here you would call a service to send the reply to the backend
+    const message = notification.replyText;
+    if (!message || !notification.id) {
+      console.error('Message or notification ID is missing');
+      return;
+    }
+    this.libraryService.replyNotification(notification.id, message).subscribe({
+      next: () => {
+        this.notifications[index].reply = message;
+        this.notifications[index].replyText = '';
+        console.log('Reply sent successfully');
+      },
+      error: (err) => {
+        console.error('Error sending reply:', err);
+        // Optionally show a user-friendly error message
+      }
+    });
   }
 }

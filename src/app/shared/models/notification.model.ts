@@ -7,4 +7,5 @@ export interface Notification {
   message: string;
   reply?: string;
   sentDate: string;
+  replyText?: string;
 }

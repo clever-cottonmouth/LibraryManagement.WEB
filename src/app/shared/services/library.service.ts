@@ -198,7 +198,12 @@ export class LibraryService {
    * @returns Observable with response
    */
   replyNotification(id: number, reply: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Student/notifications/reply/${id}`, reply, this.getAuthHeaders());
+    if (!reply || !id) {
+      throw new Error('Notification ID or reply message is missing');
+    }
+    const headers = this.getAuthHeaders().headers.set('Content-Type', 'application/json');
+    const body = JSON.stringify(reply); // Convert string to JSON string (e.g., "hello")
+    return this.http.put(`${this.apiUrl}/Student/notifications/reply/${id}`, body, { headers });
   }
 
   /**

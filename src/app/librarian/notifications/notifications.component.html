@@ -30,7 +30,7 @@
         <td mat-cell *matCellDef="let n">{{n.student?.email}}</td>
       </ng-container>
       <ng-container matColumnDef="message">
-        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <th mat-header-cell *matHeaderCellDef>Notifications</th>
         <td mat-cell *matCellDef="let n">{{n.message}}</td>
       </ng-container>
       <ng-container matColumnDef="sentDate">
@@ -38,7 +38,7 @@
         <td mat-cell *matCellDef="let n">{{n.sentDate | date:'short'}}</td>
       </ng-container>
       <ng-container matColumnDef="reply">
-        <th mat-header-cell *matHeaderCellDef>Reply</th>
+        <th mat-header-cell *matHeaderCellDef>Message</th>
         <td mat-cell *matCellDef="let n">
           <ng-container *ngIf="editingReplyId === n.id; else showReply">
             <input matInput [(ngModel)]="replyText[n.id]" placeholder="Type reply..." style="width: 150px; margin-right: 8px;">
