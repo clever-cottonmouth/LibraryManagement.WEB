@@ -103,6 +103,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
+    localStorage.removeItem('name');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
