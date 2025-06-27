@@ -19,6 +19,7 @@ export class StudentDashboardComponent implements OnInit {
   unreadNotifications: number = 0;
   loading = false;
   isVerified: boolean | null = null;
+  isActive: boolean | null = null;
 
   constructor(
     private libraryService: LibraryService,
@@ -36,6 +37,7 @@ export class StudentDashboardComponent implements OnInit {
         next: (res) => {
           const result: any = res;
           this.isVerified = result.IsVerified ?? result.isVerified ?? null;
+          this.isActive = result.isActive ?? result.isActive ?? null;
         },
         error: () => {
           this.isVerified = null;

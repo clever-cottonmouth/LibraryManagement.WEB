@@ -27,7 +27,7 @@
         </label>
       </div>
       <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="bookForm.invalid || loading">
+        <button mat-raised-button color="primary" type="submit" [disabled]="bookForm.invalid || loading || bookForm.get('stock')?.value<=0">
           <mat-icon>add</mat-icon>
           Add Book
         </button>

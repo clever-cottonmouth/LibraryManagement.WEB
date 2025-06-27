@@ -45,7 +45,8 @@ export class IssueBookComponent implements OnInit {
   fetchStudents(): void {
     this.libraryService.listStudents().subscribe({
       next: (response: any) => {
-        this.students = response.data ? response.data : response;
+        const activateStudents = response.filter((student: {isActive:any;isVerified:any})=> student.isActive && student.isVerified)
+        this.students = activateStudents;
       },
       error: () => this.snackBar.open('Failed to load students', 'Close', { duration: 3000 })
     });
@@ -82,9 +83,10 @@ export class IssueBookComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.snackBar.open(err.error || 'Failed to issue book', 'Close', { duration: 3000 });
+        this.snackBar.open(err.error.message || 'Failed to issue book1', 'Close', { duration: 3000 });
         this.loading = false;
       }
     });
+    this.fetchBooks();
   }
 }

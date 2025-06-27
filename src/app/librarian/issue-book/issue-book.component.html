@@ -19,7 +19,7 @@
         <mat-label>Book</mat-label>
         <mat-select formControlName="bookId" required>
           <mat-option *ngFor="let book of books" [value]="book.id">
-            {{book.title}} by {{book.author}}
+            {{book.title}} by {{book.author}} | stock {{book.stock}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="issueForm.get('bookId')?.hasError('required')">Book is required</mat-error>

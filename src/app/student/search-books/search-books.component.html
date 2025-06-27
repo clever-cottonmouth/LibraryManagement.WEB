@@ -24,14 +24,11 @@
         <mat-card-title>{{ book.title }}</mat-card-title>
         <mat-card-subtitle>{{ book.author }} | {{ book.publication }}</mat-card-subtitle>
         <mat-card-content>
-          <div class="stock-info">
-            <span class="stock-label">Stock:</span>
-            <span class="stock-count">{{ book.stock }}</span>
-          </div>
+
           <div *ngIf="book.pdfUrl" class="download-section">
             <a [href]="book.pdfUrl" download="{{ book.title }}.pdf" target="_blank">
               <mat-icon>download</mat-icon>
-              Download PDF
+              Download
             </a>
           </div>
         </mat-card-content>

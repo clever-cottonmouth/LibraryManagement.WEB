@@ -3,12 +3,17 @@
 <div class="dashboard-container" >
   <h2>Welcome, {{ studentName }}!</h2>
 
-  <div *ngIf="isVerified === false" class="alert alert-warning" style="margin-bottom: 16px; color: #856404; background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 4px;">
-    Please wait, your profile is under verification process.
+  <div *ngIf="isVerified === false && isActive===true" class="alert alert-warning" style="margin-bottom: 16px; color: #856404; background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 4px;">
+    Your profile is under verification process.
   </div>
 
 
-  <div *ngIf="isVerified === true">
+  <div *ngIf="isActive===false && isVerified === true" class="alert alert-warning" style="margin-bottom: 16px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; border-radius: 4px;">
+    Your profile is Deactivated! Please contact Librarian
+  </div>
+
+
+  <div *ngIf="isVerified === true && isActive===true">
     <div class="summary-cards">
       <mat-card class="summary-card issued">
         <mat-card-title>Books Issued</mat-card-title>
