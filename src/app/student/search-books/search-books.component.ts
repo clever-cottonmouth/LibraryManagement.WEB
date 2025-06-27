@@ -20,7 +20,7 @@ export class SearchBooksComponent implements OnInit {
     this.loading = true;
     this.libraryService.listBooksStudent().subscribe({
       next: (response: any) => {
-        this.allBooks = response.data ? response.data : response;
+        this.allBooks = response.data ? response.data : response.filter((x:{isActive:boolean;})=>x.isActive===true);
         this.books = [...this.allBooks];
         this.loading = false;
         this.searched = false;

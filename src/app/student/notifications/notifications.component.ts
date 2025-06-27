@@ -27,8 +27,7 @@ export class StudentNotificationsComponent implements OnInit {
     }
     this.libraryService.getStudentNotifications(email).subscribe({
       next: (notifications) => {
-        localStorage.setItem('notificationId', notifications[0].id.toString());
-
+        localStorage.setItem('notificationId', notifications[0]?.id?.toString());
         this.notifications = notifications;
         this.loading = false;
       },

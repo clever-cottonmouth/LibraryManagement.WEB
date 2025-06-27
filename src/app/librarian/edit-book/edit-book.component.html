@@ -23,10 +23,10 @@
       </mat-form-field>
       <div *ngIf="pdfUrl" class="current-pdf">
         <mat-icon>picture_as_pdf</mat-icon>
-        <a [href]="pdfUrl" target="_blank" rel="noopener">View Current PDF</a>
+        <a [href]="pdfUrl" target="_blank" rel="noopener" download>Current PDF or DOC</a>
       </div>
       <div class="file-inputs">
-        <label>PDF File:
+        <label>PDF or Word File:
           <input type="file" accept="application/pdf" (change)="onFileChange($event)">
         </label>
       </div>

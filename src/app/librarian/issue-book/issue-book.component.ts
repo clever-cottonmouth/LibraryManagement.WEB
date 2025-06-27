@@ -83,7 +83,7 @@ export class IssueBookComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.snackBar.open(err.error.message || 'Failed to issue book1', 'Close', { duration: 3000 });
+        this.snackBar.open(err.error.message || 'Failed to issue book', 'Close', { duration: 3000 });
         this.loading = false;
       }
     });
