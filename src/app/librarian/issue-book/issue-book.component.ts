@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LibraryService } from '../../shared/services/library.service';
 import { Student } from '../../shared/models/student.model';
 import { Book } from '../../shared/models/book.model';
+import { formatDate } from '@angular/common';
 // import { BookIssue } from '../../shared/models/book-issue.model';
 
 interface BookIssueRequest {
@@ -33,7 +34,7 @@ export class IssueBookComponent implements OnInit {
       studentId: [null, Validators.required],
       bookId: [null, Validators.required],
       issueDate: [new Date().toISOString().substring(0, 10), Validators.required],
-      dueDate: ['']
+      dueDate: ['', Validators.required]
     });
   }
 
@@ -71,8 +72,9 @@ export class IssueBookComponent implements OnInit {
       studentId: this.issueForm.value.studentId,
       bookId: this.issueForm.value.bookId,
       issueDate: this.issueForm.value.issueDate,
-      dueDate: this.issueForm.value.dueDate
+      dueDate: formatDate(this.issueForm.value.dueDate, 'yyyy-MM-dd', 'en-US')
     };
+
     this.libraryService.issueBook(issue as any).subscribe({
       next: () => {
         this.snackBar.open('Book issued successfully', 'Close', { duration: 3000 });

@@ -88,10 +88,15 @@ export class ReturnBookComponent implements OnInit {
     this.loading = true;
     const issueId = this.returnForm.value.issueId;
     this.libraryService.returnBook(issueId).subscribe({
-      next: () => {
-        this.snackBar.open('Book returned successfully', 'Close', { duration: 3000 });
+      next: (res) => {
+        const message = res.penalty && res.penalty >0
+        ?`Book returned Successfully! You have ${res.penalty} Rs Penalty`
+        : `Book returned Successfully`
+
+
+        this.snackBar.open(message, 'Close', { duration: 10000 });
         this.returnForm.get('issueId')?.reset();
-        this.onStudentChange(); // Refresh issued books
+        this.onStudentChange();
         this.loading = false;
       },
       error: (err) => {
