@@ -9,6 +9,10 @@
       <th mat-header-cell *matHeaderCellDef> Book ID </th>
       <td mat-cell *matCellDef="let issue"> {{ issue.bookId }} </td>
     </ng-container>
+    <ng-container matColumnDef="bookTitle">
+      <th mat-header-cell *matHeaderCellDef> Book Title </th>
+      <td mat-cell *matCellDef="let issue"> {{ issue.bookTitle }} </td>
+    </ng-container>
     <ng-container matColumnDef="issueDate">
       <th mat-header-cell *matHeaderCellDef> Issue Date </th>
       <td mat-cell *matCellDef="let issue"> {{ issue.issueDate | date }} </td>
@@ -21,8 +25,8 @@
       <th mat-header-cell *matHeaderCellDef> Penalty </th>
       <td mat-cell *matCellDef="let issue"> {{ issue.penalty }} </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="['bookId', 'issueDate', 'dueDate', 'penalty']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['bookId', 'issueDate', 'dueDate', 'penalty'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['bookId', 'bookTitle', 'issueDate', 'dueDate', 'penalty']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['bookId', 'bookTitle', 'issueDate', 'dueDate', 'penalty'];"></tr>
   </table>
   <div *ngIf="!loading && issuedBooks.length === 0" class="no-books">
     <p>No books issued.</p>
