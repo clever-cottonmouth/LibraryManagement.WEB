@@ -32,6 +32,7 @@ export class AddBookComponent {
   bookForm: FormGroup;
   loading = false;
   pdfFile: File | null = null;
+  docFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -47,10 +48,27 @@ export class AddBookComponent {
     });
   }
 
-  onFileChange(event: Event, type: string): void {
+  onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      this.pdfFile = input.files[0];
+      const file = input.files[0];
+      const fileType = file.type;
+      const fileName = file.name.toLowerCase();
+      if (fileType === 'application/pdf' || fileName.endsWith('.pdf')) {
+        this.pdfFile = file;
+        this.docFile = null;
+      } else if (
+        fileType === 'application/msword' ||
+        fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+        fileName.endsWith('.doc') ||
+        fileName.endsWith('.docx')
+      ) {
+        this.docFile = file;
+        this.pdfFile = null;
+      } else {
+        this.pdfFile = null;
+        this.docFile = null;
+      }
     }
   }
 
@@ -63,6 +81,7 @@ export class AddBookComponent {
     formData.append('publication', this.bookForm.value.publication);
     formData.append('stock', this.bookForm.value.stock);
     if (this.pdfFile) formData.append('pdfFile', this.pdfFile);
+    if (this.docFile) formData.append('pdfFile', this.docFile);
     this.libraryService.addBook(formData).subscribe({
       next: () => {
         this.snackBar.open('Book added successfully', 'Close', { duration: 3000 });
