@@ -151,6 +151,7 @@ export class AuthService {
   private setSession(token: string, role: string, email:string ): void {
     localStorage.setItem('token', token);
     localStorage.setItem('email',email);
+    localStorage.setItem('name',email.split("@")[0]);
     const decoded = this.jwtHelper.decodeToken(token);
     this.currentUserSubject.next(decoded.sub);
   }

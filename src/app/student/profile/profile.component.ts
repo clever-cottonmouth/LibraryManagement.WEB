@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
       ...this.profileForm.value,
       email:localStorage.getItem('email')
     };
+    localStorage.setItem('name', this.profileForm.value.name)
     this.libraryService.updateProfile(student).subscribe({
       next: () => {
         this.snackBar.open('Profile updated successfully', 'Close', { duration: 3000 });

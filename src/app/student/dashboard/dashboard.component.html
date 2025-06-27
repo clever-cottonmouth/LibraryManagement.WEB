@@ -12,6 +12,10 @@
     Your profile is Deactivated! Please contact Librarian
   </div>
 
+  <div *ngIf="isActive===false && isVerified === false" class="alert alert-warning" style="margin-bottom: 16px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; border-radius: 4px;">
+    Your profile is nor Active nor Verified
+  </div>
+
 
   <div *ngIf="isVerified === true && isActive===true">
     <div class="summary-cards">
