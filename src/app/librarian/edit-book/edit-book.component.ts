@@ -34,6 +34,9 @@ export class EditBookComponent implements OnInit {
   pdfFile: File | null = null;
   bookId: number | null = null;
   pdfUrl: string | null = null;
+  videoFile: File | null = null;
+  videoPreview: string | null = null;
+  videoUrl: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -77,12 +80,26 @@ export class EditBookComponent implements OnInit {
       stock: book.stock
     });
     this.pdfUrl = book.pdfUrl || null;
+    this.videoUrl = book.videoUrl || null;
   }
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       this.pdfFile = input.files[0];
+    }
+  }
+
+  onVideoChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.videoFile = input.files[0];
+      // Optional: Show video preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.videoPreview = e.target.result;
+      };
+      reader.readAsDataURL(this.videoFile);
     }
   }
 
@@ -96,6 +113,7 @@ export class EditBookComponent implements OnInit {
     formData.append('publication', this.bookForm.value.publication);
     formData.append('stock', this.bookForm.value.stock);
     if (this.pdfFile) formData.append('pdfFile', this.pdfFile);
+    if (this.videoFile) formData.append('videoFile', this.videoFile);
     this.libraryService.updateBook(formData).subscribe({
       next: () => {
         this.snackBar.open('Book updated successfully', 'Close', { duration: 3000 });

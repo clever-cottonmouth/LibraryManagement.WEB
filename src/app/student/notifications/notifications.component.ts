@@ -22,7 +22,6 @@ export class StudentNotificationsComponent implements OnInit {
     const email = localStorage.getItem('email');
     if (!email) {
       this.loading = false;
-      // Optionally, handle the missing email case (e.g., show an error)
       return;
     }
     this.libraryService.getStudentNotifications(email).subscribe({

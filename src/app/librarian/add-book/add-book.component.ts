@@ -33,6 +33,8 @@ export class AddBookComponent {
   loading = false;
   pdfFile: File | null = null;
   docFile: File | null = null;
+  videoFile: File | null = null;
+  videoPreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -72,6 +74,19 @@ export class AddBookComponent {
     }
   }
 
+  onVideoChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.videoFile = input.files[0];
+      // Optional: Show video preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.videoPreview = e.target.result;
+      };
+      reader.readAsDataURL(this.videoFile);
+    }
+  }
+
   onSubmit(): void {
     if (this.bookForm.invalid) return;
     this.loading = true;
@@ -82,6 +97,7 @@ export class AddBookComponent {
     formData.append('stock', this.bookForm.value.stock);
     if (this.pdfFile) formData.append('pdfFile', this.pdfFile);
     if (this.docFile) formData.append('pdfFile', this.docFile);
+    if (this.videoFile) formData.append('videoFile', this.videoFile);
     this.libraryService.addBook(formData).subscribe({
       next: () => {
         this.snackBar.open('Book added successfully', 'Close', { duration: 3000 });

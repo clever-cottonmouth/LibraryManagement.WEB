@@ -59,7 +59,7 @@ export class StudentDashboardComponent implements OnInit {
         const issues = response.data ? response.data : response;
         this.issuedBooks = issues;
         this.overdueBooks = issues.filter((issue: BookIssue) => new Date(issue.dueDate) < today);
-        localStorage.setItem('name',response[0].student.name)
+        localStorage.setItem('name',response[0]?.student?.name)
         this.loading = false;
       },
       error: () => {
@@ -68,13 +68,35 @@ export class StudentDashboardComponent implements OnInit {
     });
   }
 
+  // fetchNotifications(): void {
+  //   // Assume notifications are fetched from LibraryService or a similar service
+  //   // For now, set to empty or mock
+  //   // this.libraryService.getStudentNotifications().subscribe(...)
+  //   // For demo:
+  //   this.notifications = [];
+  //   this.unreadNotifications = 0;
+  // }
+
   fetchNotifications(): void {
-    // Assume notifications are fetched from LibraryService or a similar service
-    // For now, set to empty or mock
-    // this.libraryService.getStudentNotifications().subscribe(...)
-    // For demo:
-    this.notifications = [];
-    this.unreadNotifications = 0;
+    this.loading = true;
+    const email = localStorage.getItem('email');
+    if (!email) {
+      this.loading = false;
+      return;
+    }
+    this.libraryService.getStudentNotifications(email).subscribe({
+      next: (notifications) => {
+        localStorage.setItem('notificationId', notifications[0]?.id?.toString());
+        this.notifications = notifications;
+        if(notifications[0].reply==null){
+          this.unreadNotifications = 1;
+        }
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
   }
 
   goTo(route: string): void {

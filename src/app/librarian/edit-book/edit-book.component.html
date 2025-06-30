@@ -23,13 +23,24 @@
       </mat-form-field>
       <div *ngIf="pdfUrl" class="current-pdf">
         <mat-icon>picture_as_pdf</mat-icon>
-        <a [href]="pdfUrl" target="_blank" rel="noopener" download>Current PDF or DOC</a>
+        <a [href]="pdfUrl" target="_blank" rel="noopener" download="Current.pdf">Current PDF or DOC</a>
       </div>
+
       <div class="file-inputs">
         <label>PDF or Word File:
           <input type="file" accept="application/pdf" (change)="onFileChange($event)">
         </label>
       </div>
+      <div *ngIf="videoUrl" class="current-video">
+        <mat-icon>movie</mat-icon>
+        <a [href]="videoUrl" target="_blank" rel="noopener" download="Current.mp4">Current Video</a>
+      </div>
+      <div class="file-inputs">
+        <label>Video File:
+          <input type="file" accept="video/*" (change)="onVideoChange($event)">
+        </label>
+      </div>
+      <video *ngIf="videoPreview" [src]="videoPreview" controls width="300"></video>
       <div class="actions">
         <button mat-raised-button color="primary" type="submit" [disabled]="bookForm.invalid || loading">
           <mat-icon>save</mat-icon>

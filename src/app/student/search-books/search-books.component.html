@@ -25,11 +25,19 @@
         <mat-card-subtitle>{{ book.author }} | {{ book.publication }}</mat-card-subtitle>
         <mat-card-content>
 
-          <div *ngIf="book.pdfUrl" class="download-section">
-            <a [href]="book.pdfUrl" download="{{ book.title }}.pdf" target="_blank">
-              <mat-icon>download</mat-icon>
-              Download
-            </a>
+          <div class="download-section-row">
+            <div *ngIf="book.pdfUrl" class="download-section">
+              <a [href]="book.pdfUrl" download="{{ book.title }}.pdf" target="_blank">
+                <mat-icon>download</mat-icon>
+                Download
+              </a>
+            </div>
+            <div *ngIf="book.videoUrl" class="download-section">
+              <a [href]="book.videoUrl" download="{{ book.title }}.mp4" target="_blank">
+                <mat-icon>movie</mat-icon>
+                Download Video
+              </a>
+            </div>
           </div>
         </mat-card-content>
       </mat-card>

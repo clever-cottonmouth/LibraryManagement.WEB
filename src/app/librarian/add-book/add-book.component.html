@@ -26,6 +26,12 @@
           <input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" (change)="onFileChange($event)">
         </label>
       </div>
+      <div class="file-inputs">
+        <label>Video File:
+          <input type="file" accept="video/*" (change)="onVideoChange($event)">
+        </label>
+      </div>
+      <video *ngIf="videoPreview" [src]="videoPreview" controls width="300"></video>
       <div class="actions">
         <button mat-raised-button color="primary" type="submit" [disabled]="bookForm.invalid || loading || bookForm.get('stock')?.value<=0">
           <mat-icon>add</mat-icon>
