@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { Student, BookIssue } from '../../shared/models';
 
 @Component({
   selector: 'app-edit-book',
@@ -37,6 +38,7 @@ export class EditBookComponent implements OnInit {
   videoFile: File | null = null;
   videoPreview: string | null = null;
   videoUrl: string | null = null;
+  issuedStudents: Student[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +70,13 @@ export class EditBookComponent implements OnInit {
           this.snackBar.open('Failed to load book details', 'Close', { duration: 3000 });
           this.loading = false;
         }
+      });
+      // Fetch issued books and students
+      this.libraryService.getIssuedBooks().subscribe((issues: BookIssue[]) => {
+        const issuedToThisBook = issues.filter(issue => issue.bookId === this.bookId);
+        this.libraryService.listStudents().subscribe((students: Student[]) => {
+          this.issuedStudents = students.filter(student => issuedToThisBook.some(issue => issue.studentId === student.id));
+        });
       });
     }
   }

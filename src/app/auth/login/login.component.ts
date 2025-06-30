@@ -13,6 +13,7 @@ import { Login } from '../../shared/models/login.model';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +30,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.loading = true;
       const login: Login = this.loginForm.value;
       const loginObservable = this.loginForm.value.role === 'Librarian'
         ? this.authService.librarianLogin(login)
@@ -38,8 +40,12 @@ export class LoginComponent {
         next: () => {
           const route = this.loginForm.value.role === 'Librarian' ? '/librarian' : '/student';
           this.router.navigate([route]);
+          this.loading = false;
         },
-        error: (err) => this.snackBar.open(err.error || 'Login failed', 'Close', { duration: 3000 })
+        error: (err) => {
+          this.snackBar.open(err.error || 'Login failed', 'Close', { duration: 3000 });
+          this.loading = false;
+        }
       });
     }
   }
