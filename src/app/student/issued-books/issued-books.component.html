@@ -22,7 +22,7 @@
       <td mat-cell *matCellDef="let issue"> {{ issue.dueDate | date }} </td>
     </ng-container>
     <ng-container matColumnDef="penalty">
-      <th mat-header-cell *matHeaderCellDef> Penalty </th>
+      <th mat-header-cell *matHeaderCellDef> Penalty (Rs.) </th>
       <td mat-cell *matCellDef="let issue"> {{ issue.penalty }} </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="['bookId', 'bookTitle', 'issueDate', 'dueDate', 'penalty']"></tr>
