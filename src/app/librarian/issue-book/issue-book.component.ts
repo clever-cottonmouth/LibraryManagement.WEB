@@ -24,6 +24,7 @@ export class IssueBookComponent implements OnInit {
   students: Student[] = [];
   books: Book[] = [];
   loading = false;
+  today = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -91,4 +92,12 @@ export class IssueBookComponent implements OnInit {
     });
     this.fetchBooks();
   }
+
+  disablePastAndToday = (d: Date | null): boolean => {
+    if (!d) return false;
+    // Set the time to 0 for comparison
+    const date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const today = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
+    return date > today;
+  };
 }
