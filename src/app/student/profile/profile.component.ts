@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getStudentInfo();
     this.loadProfile();
   }
 
@@ -91,5 +92,16 @@ export class ProfileComponent implements OnInit {
     const newPassword = form.get('newPassword')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
     return newPassword === confirmPassword ? null : { passwordsMismatch: true };
+  }
+
+
+  getStudentInfo(): void {
+    const email = localStorage.getItem('email') || '';
+    this.libraryService.getStudentInfo(email).subscribe({
+      next: (student) => {
+        localStorage.setItem('name', student.name)
+        this.profileForm.patchValue({ name: student.name })
+      }
+    });
   }
 }

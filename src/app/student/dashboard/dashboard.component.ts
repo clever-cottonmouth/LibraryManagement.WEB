@@ -88,10 +88,11 @@ export class StudentDashboardComponent implements OnInit {
       next: (notifications) => {
         localStorage.setItem('notificationId', notifications[0]?.id?.toString());
         this.notifications = notifications;
-        if(notifications[0].reply==null){
+        if(notifications[0]?.reply==null){
           this.unreadNotifications = 1;
         }
         this.loading = false;
+        localStorage.setItem('name',notifications[0]?.student?.name)
       },
       error: () => {
         this.loading = false;
