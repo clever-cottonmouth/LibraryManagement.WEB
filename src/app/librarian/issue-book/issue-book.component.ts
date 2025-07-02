@@ -57,7 +57,8 @@ export class IssueBookComponent implements OnInit {
   fetchBooks(): void {
     this.libraryService.listBooks().subscribe({
       next: (response: any) => {
-        this.books = response.data ? response.data : response;
+        const activateBooks = response.data.filter((book: {isActive:any})=> book.isActive)
+        this.books = activateBooks;
       },
       error: () => this.snackBar.open('Failed to load books', 'Close', { duration: 3000 })
     });
