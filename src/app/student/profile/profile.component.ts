@@ -15,6 +15,8 @@ export class ProfileComponent implements OnInit {
   passwordForm: FormGroup;
   loadingProfile = false;
   loadingPassword = false;
+  isVerified: boolean | null = null;
+  isActive: boolean | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +38,19 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getStudentInfo();
     this.loadProfile();
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.libraryService.isStudentVerified(email).subscribe({
+        next: (res) => {
+          const result: any = res;
+          this.isVerified = result.IsVerified ?? result.isVerified ?? null;
+          this.isActive = result.isActive ?? result.isActive ?? null;
+        },
+        error: () => {
+          this.isVerified = null;
+        }
+      });
+    }
   }
 
   loadProfile(): void {
@@ -82,7 +97,7 @@ export class ProfileComponent implements OnInit {
         this.loadingPassword = false;
       },
       error: (err) => {
-        this.snackBar.open(err.error || 'Failed to change password', 'Close', { duration: 3000 });
+        this.snackBar.open(err.error.message || 'Failed to change password', 'Close', { duration: 3000 });
         this.loadingPassword = false;
       }
     });

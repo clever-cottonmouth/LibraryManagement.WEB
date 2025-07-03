@@ -43,7 +43,7 @@ export class LoginComponent {
           this.loading = false;
         },
         error: (err) => {
-          this.snackBar.open(err.error || 'Login failed', 'Close', { duration: 3000 });
+          this.snackBar.open(err.error.message || 'Login failed', 'Close', { duration: 3000 });
           this.loading = false;
         }
       });

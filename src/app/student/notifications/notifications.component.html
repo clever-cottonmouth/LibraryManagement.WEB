@@ -1,4 +1,18 @@
-<mat-card>
+<div *ngIf="isVerified === false && isActive===true" class="alert alert-warning" style="margin-bottom: 16px; color: #856404; background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 4px;">
+  Your profile is under verification process.
+</div>
+
+
+<div *ngIf="isActive===false && isVerified === true" class="alert alert-warning" style="margin-bottom: 16px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; border-radius: 4px;">
+  Your profile is Deactivated! Please contact Librarian
+</div>
+
+<div *ngIf="isActive===false && isVerified === false" class="alert alert-warning" style="margin-bottom: 16px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; border-radius: 4px;">
+  Your profile is nor Active nor Verified
+</div>
+
+
+<mat-card *ngIf="isVerified === true && isActive===true">
   <mat-card-header>
     <mat-card-title>My Notifications</mat-card-title>
   </mat-card-header>

@@ -10,11 +10,26 @@ import { Notification } from '../../shared/models/notification.model';
 export class StudentNotificationsComponent implements OnInit {
   notifications: Notification[] = [];
   loading = false;
+  isVerified: boolean | null = null;
+  isActive: boolean | null = null;
 
   constructor(private libraryService: LibraryService) {}
 
   ngOnInit(): void {
     this.fetchNotifications();
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.libraryService.isStudentVerified(email).subscribe({
+        next: (res) => {
+          const result: any = res;
+          this.isVerified = result.IsVerified ?? result.isVerified ?? null;
+          this.isActive = result.isActive ?? result.isActive ?? null;
+        },
+        error: () => {
+          this.isVerified = null;
+        }
+      });
+    }
   }
 
   fetchNotifications(): void {

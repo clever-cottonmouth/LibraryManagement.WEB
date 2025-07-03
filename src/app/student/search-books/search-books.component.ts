@@ -13,6 +13,8 @@ export class SearchBooksComponent implements OnInit {
   books: Book[] = [];
   loading = false;
   searched = false;
+  isVerified: boolean | null = null;
+  isActive: boolean | null = null;
 
   constructor(private libraryService: LibraryService) {}
 
@@ -32,15 +34,29 @@ export class SearchBooksComponent implements OnInit {
         this.searched = false;
       }
     });
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.libraryService.isStudentVerified(email).subscribe({
+        next: (res) => {
+          const result: any = res;
+          this.isVerified = result.IsVerified ?? result.isVerified ?? null;
+          this.isActive = result.isActive ?? result.isActive ?? null;
+        },
+        error: () => {
+          this.isVerified = null;
+        }
+      });
+    }
   }
 
-  searchBooks(): void {
-    if (!this.query.trim()) {
+  searchBooks(query: string): void {
+    this.query = query;
+    if (!query || !query.trim()) {
       this.books = [...this.allBooks];
       this.searched = true;
       return;
     }
-    const q = this.query.trim().toLowerCase();
+    const q = query.trim().toLowerCase();
     this.books = this.allBooks.filter(book =>
       book.title.toLowerCase().includes(q) ||
       book.author.toLowerCase().includes(q) ||

@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class IssuedBooksComponent implements OnInit {
   issuedBooks: BookIssue[] = [];
   loading = false;
+  isVerified: boolean | null = null;
+  isActive: boolean | null = null;
 
   constructor(
     private libraryService: LibraryService,
@@ -23,6 +25,19 @@ export class IssuedBooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchIssuedBooks();
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.libraryService.isStudentVerified(email).subscribe({
+        next: (res) => {
+          const result: any = res;
+          this.isVerified = result.IsVerified ?? result.isVerified ?? null;
+          this.isActive = result.isActive ?? result.isActive ?? null;
+        },
+        error: () => {
+          this.isVerified = null;
+        }
+      });
+    }
   }
 
   fetchIssuedBooks(): void {

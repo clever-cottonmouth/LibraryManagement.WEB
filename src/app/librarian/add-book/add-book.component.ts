@@ -35,6 +35,8 @@ export class AddBookComponent {
   docFile: File | null = null;
   videoFile: File | null = null;
   videoPreview: string | null = null;
+  selectedDocName: string | null = null;
+  selectedVideoName: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +54,8 @@ export class AddBookComponent {
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length) {
+    if (input.files && input.files.length > 0) {
+      this.selectedDocName = input.files[0].name;
       const file = input.files[0];
       const fileType = file.type;
       const fileName = file.name.toLowerCase();
@@ -77,6 +80,7 @@ export class AddBookComponent {
   onVideoChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      this.selectedVideoName = input.files[0].name;
       this.videoFile = input.files[0];
       // Optional: Show video preview
       const reader = new FileReader();
@@ -104,8 +108,8 @@ export class AddBookComponent {
         this.loading = false;
         this.router.navigate(['/librarian/books']);
       },
-      error: () => {
-        this.snackBar.open('Failed to add book', 'Close', { duration: 3000 });
+      error: (err) => {
+        this.snackBar.open(err.error.message || 'Failed to add book', 'Close', { duration: 3000 });
         this.loading = false;
       }
     });

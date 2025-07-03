@@ -1,4 +1,17 @@
-<div class="issued-books-container">
+<div *ngIf="isVerified === false && isActive===true" class="alert alert-warning" style="margin-bottom: 16px; color: #856404; background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 4px;">
+  Your profile is under verification process.
+</div>
+
+
+<div *ngIf="isActive===false && isVerified === true" class="alert alert-warning" style="margin-bottom: 16px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; border-radius: 4px;">
+  Your profile is Deactivated! Please contact Librarian
+</div>
+
+<div *ngIf="isActive===false && isVerified === false" class="alert alert-warning" style="margin-bottom: 16px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 12px; border-radius: 4px;">
+  Your profile is nor Active nor Verified
+</div>
+
+<div *ngIf="isVerified === true && isActive===true" class="issued-books-container">
   <h2>My Issued Books</h2>
   <div *ngIf="loading" class="loading-container">
     <mat-spinner diameter="32"></mat-spinner>

@@ -21,17 +21,33 @@
         <mat-label>Stock</mat-label>
         <input matInput type="number" formControlName="stock" required min="0">
       </mat-form-field>
-      <div class="file-inputs">
-        <label>PDF or DOC File:
-          <input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" (change)="onFileChange($event)">
-        </label>
+      <div class="file-upload-section">
+        <div class="file-input-group">
+          <label class="custom-file-label">
+            <span class="file-label-text">Upload PDF or DOC</span>
+            <input type="file"
+                   accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                   (change)="onFileChange($event)"
+                   hidden>
+            <span class="file-name" *ngIf="selectedDocName">{{ selectedDocName }}</span>
+          </label>
+        </div>
+
+        <div class="file-input-group">
+          <label class="custom-file-label">
+            <span class="file-label-text">Upload Video</span>
+            <input type="file"
+                   accept="video/*"
+                   (change)="onVideoChange($event)"
+                   hidden>
+            <span class="file-name" *ngIf="selectedVideoName">{{ selectedVideoName }}</span>
+          </label>
+        </div>
+
+        <div class="video-preview" *ngIf="videoPreview">
+          <video [src]="videoPreview" controls width="300"></video>
+        </div>
       </div>
-      <div class="file-inputs">
-        <label>Video File:
-          <input type="file" accept="video/*" (change)="onVideoChange($event)">
-        </label>
-      </div>
-      <video *ngIf="videoPreview" [src]="videoPreview" controls width="300"></video>
       <div class="actions">
         <button mat-raised-button color="primary" type="submit" [disabled]="bookForm.invalid || loading || bookForm.get('stock')?.value<=0">
           <mat-icon>add</mat-icon>
